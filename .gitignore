@@ -1,0 +1,4 @@
+# Project exclude paths
+/.gradle/
+/Item_Catalogs/
+/build/
