@@ -1,0 +1,81 @@
+@startuml
+'https://plantuml.com/class-diagram
+class InventoryApp {
+..Active Memory..
++{static} Stage mainStage
++{static} LinkedList<InventoryItem> currentList
++{static} InventoryItem currentItem
+--
++start()
++{static} main()
+-{static} LoadDummy(only for testing)
+}
+
+class MainAppController {
+..Nodes..
+@FXML ChoiceBox FileTypeChoiceBox
+@FXML TextField SearchField
+@FXML Label NameLabel
+@FXML Label SerialLabel
+@FXML Label PriceLabel
+@FXML Label InventoryNameLabel
+
+..Table Display..
+@FXML private TableView<InventoryItem> table
+@FXML private TableColumn<InventoryItem,String> priceColumn
+@FXML private TableColumn<InventoryItem,String> serialColumn
+@FXML private TableColumn<InventoryItem,String> nameColumn
+--
++void initialize ()
++MainAppController()
+-void showItem(InventoryItem newValue)
+
+..Event Handlers..
+void AddButtonClicked(ActionEvent actionEvent)
+void EditButtonClicked(ActionEvent actionEvent)
+void DeleteButtonClicked(ActionEvent actionEvent)
+void SaveButtonClicked(ActionEvent actionEvent)
+void LoadButtonClicked(ActionEvent actionEvent)
+void SearchButtonClicked(ActionEvent actionEvent)
+}
+
+class InventoryItem {
+..Fields..
+- final SimpleStringProperty price
+- final SimpleStringProperty serial
+- final SimpleStringProperty name
+--
++ InventoryItem(String price, String serial, String name)
+
+..Accessors and Mutators..
++ String getPrice()
++ SimpleStringProperty priceProperty()
++ void setPrice(String price)
++ String getSerial()
++ SimpleStringProperty serialProperty()
++ void setSerial(String serial)
++ String getName()
++ SimpleStringProperty nameProperty()
++ void setName(String name)
++ String toString()
+}
+
+package FXML {
+class MainAppGUI
+}
+
+class TextParser
+class JSONParser
+class HTMLParser
+note "Parsers" as n1
+
+n1 . TextParser
+n1 . JSONParser
+n1 . HTMLParser
+
+InventoryApp - InventoryItem
+InventoryApp -- MainAppController
+
+MainAppController -> FXML
+
+@enduml
