@@ -25,7 +25,6 @@ public class MainAppController {
 	@FXML private TableColumn<InventoryItem,String> serialColumn;
 	@FXML private TableColumn<InventoryItem,String> nameColumn;
 
-
 	@FXML
 	public void initialize () {
 		// Initialize the table display and item data
@@ -46,7 +45,6 @@ public class MainAppController {
 
 		// add items to the choice boxes
 		SearchTypeChoiceBox.getItems().addAll("Price","Serial Number","Name");
-
 		FileTypeChoiceBox.getItems().addAll(".txt",".json",".html");
 	}
 
@@ -66,7 +64,6 @@ public class MainAppController {
 		}
 		InventoryApp.currentItem = newValue;
 	}
-
 
 	@FXML
 	void AddButtonClicked() {
@@ -115,17 +112,18 @@ public class MainAppController {
 		} catch (IOException | NullPointerException e) {
 			e.printStackTrace();
 		}
+		InventoryApp.currentItem = null;
 	}
 
 	@FXML
 	void DeleteButtonClicked() {
 		System.out.println("Delete");
-		// Open Confirm Delete dialog
-		try {
-			Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("DeleteItemGUI.fxml")));
-		} catch (IOException | NullPointerException e) {
-			e.printStackTrace();
-		}
+		// Delete selected item
+		if(InventoryApp.currentItem == null)
+			return;
+
+		InventoryApp.tableData.remove(InventoryApp.currentItem);
+		InventoryApp.currentItem = null;
 	}
 
 	@FXML
