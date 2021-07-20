@@ -8,9 +8,9 @@ public class InventoryItem {
 	private final SimpleStringProperty name = new SimpleStringProperty();
 
 	public InventoryItem(String price, String serial, String name) {
-		this.price.set(price);
-		this.serial.set(serial);
-		this.name.set(name);
+		this.price.set(price+"");
+		this.serial.set(serial+"");
+		this.name.set(name+"");
 	}
 
 	public String getPrice() {

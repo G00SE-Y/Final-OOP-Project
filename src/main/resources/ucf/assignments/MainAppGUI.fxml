@@ -38,7 +38,7 @@
                   <Button layoutX="769.0" layoutY="708.0" mnemonicParsing="false" onAction="#AddButtonClicked" text="Add" />
                   <Button layoutX="704.0" layoutY="708.0" mnemonicParsing="false" onAction="#EditButtonClicked" text="Edit" />
                   <Button layoutX="618.0" layoutY="708.0" mnemonicParsing="false" onAction="#DeleteButtonClicked" text="Delete" />
-                  <ChoiceBox fx:id="SearchType" layoutX="217.0" layoutY="76.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="SearchTypeChoiceBox" layoutX="217.0" layoutY="76.0" prefWidth="150.0" />
                   <Button layoutX="376.0" layoutY="76.0" mnemonicParsing="false" onAction="#SearchButtonClicked" text="Search" />
                   <TextField fx:id="SearchField" layoutX="14.0" layoutY="76.0" promptText="Enter Search String...">
                      <font>
