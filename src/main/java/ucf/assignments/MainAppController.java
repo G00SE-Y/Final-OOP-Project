@@ -1,15 +1,11 @@
 package ucf.assignments;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.util.Objects;
 
@@ -38,7 +34,7 @@ public class MainAppController {
 		priceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty());
 		serialColumn.setCellValueFactory(cellData -> cellData.getValue().serialProperty());
 		nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		
+
 		table.setItems(InventoryApp.tableData);
 
 		table.getSelectionModel().selectedItemProperty().addListener(
@@ -59,9 +55,9 @@ public class MainAppController {
 	private void showItem(InventoryItem newValue) {
 		// update the item display information to the information of the currently selected table item
 		if (newValue == null) {
-			PriceLabel.setText("null");
-			SerialLabel.setText("null");
-			NameLabel.setText("null");
+			PriceLabel.setText("");
+			SerialLabel.setText("");
+			NameLabel.setText("");
 		}
 		else {
 			PriceLabel.setText(newValue.getPrice());
@@ -73,7 +69,7 @@ public class MainAppController {
 
 
 	@FXML
-	void AddButtonClicked(ActionEvent actionEvent) {
+	void AddButtonClicked() {
 		System.out.println("Add");
 		// Open Add Item dialog
 		try {
@@ -96,18 +92,33 @@ public class MainAppController {
 	}
 
 	@FXML
-	void EditButtonClicked(ActionEvent actionEvent) {
+	void EditButtonClicked() {
 		System.out.println("Edit");
 		// Open Edit Item dialog
+		if(InventoryApp.currentItem == null) {
+			return;
+		}
+
 		try {
 			Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("EditItemGUI.fxml")));
+			Scene AddScene = new Scene(root);
+			Stage dialogStage = new Stage();
+
+			dialogStage.setScene(AddScene);
+			dialogStage.setTitle("Edit Item");
+			dialogStage.show();
+
+			FXMLLoader loader = new FXMLLoader();
+			EditItemController controller = new EditItemController();
+			controller.setDialogStage(dialogStage);
+			loader.setController(controller);
 		} catch (IOException | NullPointerException e) {
 			e.printStackTrace();
 		}
 	}
 
 	@FXML
-	void DeleteButtonClicked(ActionEvent actionEvent) {
+	void DeleteButtonClicked() {
 		System.out.println("Delete");
 		// Open Confirm Delete dialog
 		try {
@@ -118,7 +129,7 @@ public class MainAppController {
 	}
 
 	@FXML
-	void SaveButtonClicked(ActionEvent actionEvent) {
+	void SaveButtonClicked() {
 		System.out.println("Save to " + FileTypeChoiceBox.getValue());
 		// Open File Explorer to allow user to select save location
 		// Call method to save list to currently selected format in selected location
@@ -127,7 +138,7 @@ public class MainAppController {
 	}
 
 	@FXML
-	void LoadButtonClicked(ActionEvent actionEvent) {
+	void LoadButtonClicked() {
 		System.out.println("Load");
 		// Open File Explorer for the user to select a file to load
 		// Call Parse from file function
@@ -135,7 +146,7 @@ public class MainAppController {
 	}
 
 	@FXML
-	void SearchButtonClicked(ActionEvent actionEvent) {
+	void SearchButtonClicked() {
 		System.out.println("Search for '"+ this.SearchField.getText() +"' in the item " + "[field]" + "s");
 		// Search for items containing the input search string within the selected field
 		// update the current visible list to items containing the search string

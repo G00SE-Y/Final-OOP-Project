@@ -1,14 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ucf.assignments.EditItemController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="428.0" prefWidth="422.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ucf.assignments.EditItemController">
+    <children>
+        <GridPane layoutX="14.0" layoutY="14.0" prefHeight="355.0" prefWidth="400.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="195.0" minWidth="10.0" prefWidth="114.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="324.0" minWidth="10.0" prefWidth="286.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="150.0" minHeight="8.0" prefHeight="40.0" valignment="TOP" vgrow="NEVER" />
+                <RowConstraints maxHeight="263.0" minHeight="10.0" prefHeight="40.0" valignment="TOP" vgrow="NEVER" />
+                <RowConstraints maxHeight="297.0" minHeight="10.0" prefHeight="280.0" valignment="TOP" vgrow="NEVER" />
+            </rowConstraints>
+            <children>
+                <Label prefHeight="36.0" prefWidth="112.0" text="Price (XX.xx) :" GridPane.halignment="LEFT" />
+                <Label prefHeight="37.0" prefWidth="114.0" text="Serial Number :" GridPane.rowIndex="1" />
+                <Label prefHeight="35.0" prefWidth="113.0" text="Name :" GridPane.rowIndex="2" />
+                <TextArea fx:id="NameField" prefHeight="277.0" prefWidth="286.0" promptText="Enter unique Item Name..." wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <font>
+                        <Font name="System Italic" size="16.0" />
+                    </font></TextArea>
+                <TextField fx:id="PriceField" promptText="Enter Price as a decimal..." GridPane.columnIndex="1">
+                    <font>
+                        <Font name="System Italic" size="16.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="SerialField" promptText="Enter unique 10 char Serial Number..." GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <font>
+                        <Font name="System Italic" size="16.0" />
+                    </font></TextField>
+            </children>
+        </GridPane>
+        <Button layoutX="175.0" layoutY="379.0" mnemonicParsing="false" onAction="#SubmitButtonClicked" text="Submit" />
+        <Button layoutX="338.0" layoutY="379.0" mnemonicParsing="false" onAction="#CancelButtonClicked" text="Cancel" />
+    </children>
 </AnchorPane>
