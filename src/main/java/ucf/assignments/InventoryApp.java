@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.Objects;
 
 public class InventoryApp extends Application {
@@ -18,10 +19,12 @@ public class InventoryApp extends Application {
 	public static InventoryItem currentItem;
 
 	public static ObservableList<InventoryItem> tableData;
+	public static LinkedList<InventoryItem> items;
 
 
 	public static void main(String[] args) {
 		tableData = FXCollections.observableArrayList();
+		items = new LinkedList<>();
 		loadDummy();
 		launch(args);
 	}
@@ -54,6 +57,8 @@ public class InventoryApp extends Application {
 		tableData.add(new InventoryItem("$0.00", "XXXXXXXXXX", "256_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________"));
 		tableData.add(new InventoryItem("$4.20", "6969696969", "The key to the Love Shack ;)"));
 		tableData.add(new InventoryItem("$0.59", "1234567890", "Spearmint Flavored Gum"));
+
+		items.addAll(tableData);
 
 	}
 }

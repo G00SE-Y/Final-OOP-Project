@@ -30,7 +30,10 @@ public class AddItemController {
 							"SerialNumber: " + this.SerialField.getText() + "\n" +
 							"Name: " + this.NameField.getText()
 			);
-			InventoryApp.tableData.add(new InventoryItem(usd.format(Double.parseDouble(this.PriceField.getText())), this.SerialField.getText(), this.NameField.getText()));
+
+			InventoryItem newItem = new InventoryItem(usd.format(Double.parseDouble(this.PriceField.getText())), this.SerialField.getText(), this.NameField.getText());
+			InventoryApp.tableData.add(newItem);
+			InventoryApp.items.add(newItem);
 
 			dialogStage.close();
 		}

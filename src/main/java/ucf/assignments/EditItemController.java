@@ -42,6 +42,7 @@ public class EditItemController {
 			InventoryApp.currentItem.setSerial(this.SerialField.getText());
 			InventoryApp.currentItem.setName(this.NameField.getText());
 
+			InventoryApp.currentItem = null;
 			dialogStage.close();
 		}
 	}
@@ -49,6 +50,7 @@ public class EditItemController {
 	@FXML
 	public void CancelButtonClicked() {
 		System.out.println("Cancelled");
+		InventoryApp.currentItem = null;
 		dialogStage.close();
 	}
 
