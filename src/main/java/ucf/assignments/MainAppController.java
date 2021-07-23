@@ -140,12 +140,16 @@ public class MainAppController {
 	void DeleteButtonClicked() {
 		System.out.println("Delete");
 		// Delete selected item
-		if (InventoryApp.currentItem == null)
+		if(InventoryApp.currentItem == null)
 			return;
 
-		InventoryApp.tableData.remove(InventoryApp.currentItem);
 		InventoryApp.items.remove(InventoryApp.currentItem);
-		InventoryApp.currentItem = null;
+		InventoryApp.tableData.remove(InventoryApp.currentItem);
+
+		// clear selection
+		table.getSelectionModel().clearSelection();
+		showItem(null);
+
 	}
 
 	@FXML
