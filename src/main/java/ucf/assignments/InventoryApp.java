@@ -25,7 +25,6 @@ public class InventoryApp extends Application {
 	public static void main(String[] args) {
 		tableData = FXCollections.observableArrayList();
 		items = new LinkedList<>();
-		loadDummy();
 		launch(args);
 	}
 
@@ -49,17 +48,6 @@ public class InventoryApp extends Application {
 			e.printStackTrace();
 			System.exit(-1);
 		}
-	}
-
-	private static void loadDummy() {
-		// TODO
-		// Load Dummy data for testing until data storage is implemented
-		tableData.add(new InventoryItem("$0.00", "XXXXXXXXXX", "256_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________"));
-		tableData.add(new InventoryItem("$4.20", "6969696969", "The key to the Love Shack ;)"));
-		tableData.add(new InventoryItem("$0.59", "1234567890", "Spearmint Flavored Gum"));
-
-		items.addAll(tableData);
-
 	}
 
 	public static void setList(LinkedList<InventoryItem> newList) {

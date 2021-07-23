@@ -139,6 +139,8 @@ public class MainAppController {
 	@FXML
 	void DeleteButtonClicked() {
 		System.out.println("Delete");
+
+
 		// Delete selected item
 		if(InventoryApp.currentItem == null)
 			return;
@@ -244,7 +246,7 @@ public class MainAppController {
 			TSVParser.parseToFile(file, InventoryApp.items);
 
 		else if(file.toString().endsWith(".json"))
-			JSONParser.parseToFile(file, InventoryApp.items);
+			JsonParser.parseToFile(file, InventoryApp.items);
 
 		else if(file.toString().endsWith(".html"))
 			HTMLParser.parseToFile(file, InventoryApp.items);
@@ -274,7 +276,7 @@ public class MainAppController {
 			list.addAll(TSVParser.parseFromFile(file));
 
 		else if(file.toString().endsWith(".json"))
-			list.addAll(JSONParser.parseFromFile(file));
+			list.addAll(JsonParser.parseFromFile(file));
 
 		else if(file.toString().endsWith(".html"))
 			list.addAll(HTMLParser.parseFromFile(file));
