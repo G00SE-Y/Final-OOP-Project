@@ -95,6 +95,8 @@ public class EditItemController {
 		else if(!(NameField.getText().length() >= 2 && NameField.getText().length() <=256)) {
 			errorMessage += "Name must be between 2 and 256 characters long!\n";
 		}
+		if(Objects.requireNonNull(NameField.getText()).contains("-"))
+			errorMessage += "Name must must not contain Tabs ('-')!\n";
 
 		if (errorMessage.length() == 0) {
 			return true;

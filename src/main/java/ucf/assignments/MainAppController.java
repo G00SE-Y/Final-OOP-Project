@@ -5,9 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Locale;
 import java.util.Objects;
 
 public class MainAppController {
@@ -186,7 +191,7 @@ public class MainAppController {
 		InventoryApp.tableData.clear();
 
 		for(InventoryItem item : InventoryApp.items) {
-			if(item.getSerial().contains(text))
+			if(item.getSerial().toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT)))
 				InventoryApp.tableData.add(item);
 		}
 	}
@@ -196,24 +201,49 @@ public class MainAppController {
 		InventoryApp.tableData.clear();
 
 		for(InventoryItem item : InventoryApp.items) {
-			if(item.getName().contains(text))
+			if(item.getName().toLowerCase(Locale.ROOT).contains(text.toLowerCase(Locale.ROOT)))
 				InventoryApp.tableData.add(item);
 		}
 	}
 
 	@FXML
 	void SaveButtonClicked() {
-		System.out.println("Save to " + FileTypeChoiceBox.getValue());
+		System.out.println("Save to:");
 		// Open File Explorer to allow user to select save location
 		// Call method to save list to currently selected format in selected location
-		String type = FileTypeChoiceBox.getValue();
-		switch (type) {
-			case ".txt" :
-			case ".json" :
-			case ".html" :
-			default :
-		}
 
+		File saveFile = getSaveFile();
+		if(saveFile == null)
+			return;
+
+		parseToFile(saveFile);
+
+
+	}
+
+	private File getSaveFile() {
+		FileChooser fileChooser = new FileChooser();
+
+		fileChooser.setTitle("Select Save Location");
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter(".txt", "*.txt"),
+				new FileChooser.ExtensionFilter(".json", "*.json"),
+				new FileChooser.ExtensionFilter(".html", "*.html")
+		);
+
+		return fileChooser.showSaveDialog(InventoryApp.mainStage);
+	}
+
+	private void parseToFile(File file) {
+		if(file.toString().endsWith(".txt"))
+			TSVParser.parseToFile(file, InventoryApp.items);
+
+		else if(file.toString().endsWith(".json"))
+			JSONParser.parseToFile(file, InventoryApp.items);
+
+		else if(file.toString().endsWith(".html"))
+			HTMLParser.parseToFile(file, InventoryApp.items);
 
 	}
 
@@ -223,6 +253,43 @@ public class MainAppController {
 		// Open File Explorer for the user to select a file to load
 		// Call Parse from file function
 		// update table and active memory
+
+		File loadFile = getLoadFile();
+		System.out.println(loadFile);
+		if(loadFile == null)
+			return;
+		loadFromFile(loadFile);
+
+
+	}
+
+	private void loadFromFile(File file) {
+		LinkedList<InventoryItem> list = new LinkedList<>();
+
+		if(file.toString().endsWith(".txt"))
+			list.addAll(TSVParser.parseFromFile(file));
+
+		else if(file.toString().endsWith(".json"))
+			list.addAll(JSONParser.parseFromFile(file));
+
+		else if(file.toString().endsWith(".html"))
+			list.addAll(HTMLParser.parseFromFile(file));
+
+		InventoryApp.setList(list);
+	}
+
+	private File getLoadFile() {
+		FileChooser fileChooser = new FileChooser();
+
+		fileChooser.setTitle("Select File To Load");
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter(".txt", "*.txt"),
+				new FileChooser.ExtensionFilter(".json", "*.json"),
+				new FileChooser.ExtensionFilter(".html", "*.html")
+		);
+
+		return fileChooser.showOpenDialog(InventoryApp.mainStage);
 	}
 
 }

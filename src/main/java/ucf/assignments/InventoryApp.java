@@ -61,4 +61,13 @@ public class InventoryApp extends Application {
 		items.addAll(tableData);
 
 	}
+
+	public static void setList(LinkedList<InventoryItem> newList) {
+		items.clear();
+		tableData.clear();
+
+		items.addAll(newList);
+		tableData.addAll(newList);
+
+	}
 }
