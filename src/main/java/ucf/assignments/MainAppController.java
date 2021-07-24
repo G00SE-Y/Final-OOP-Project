@@ -20,8 +20,6 @@ public class MainAppController {
 	@FXML
 	ChoiceBox<String> SearchTypeChoiceBox;
 	@FXML
-	ChoiceBox<String> FileTypeChoiceBox;
-	@FXML
 	TextField SearchField;
 	@FXML
 	Label NameLabel;
@@ -60,7 +58,6 @@ public class MainAppController {
 
 		// add items to the choice boxes
 		SearchTypeChoiceBox.getItems().addAll("Price", "Serial Number", "Name");
-		FileTypeChoiceBox.getItems().addAll(".txt", ".json", ".html");
 	}
 
 	public MainAppController() {
@@ -233,6 +230,7 @@ public class MainAppController {
 		fileChooser.setTitle("Select Save Location");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("All Files", "*.*"),
 				new FileChooser.ExtensionFilter(".txt", "*.txt"),
 				new FileChooser.ExtensionFilter(".json", "*.json"),
 				new FileChooser.ExtensionFilter(".html", "*.html")
@@ -249,7 +247,7 @@ public class MainAppController {
 			JsonParser.parseToFile(file, InventoryApp.items);
 
 		else if(file.toString().endsWith(".html"))
-			HTMLParser.parseToFile(file, InventoryApp.items);
+			HtmlParser.parseToFile(file, InventoryApp.items);
 
 	}
 
@@ -279,7 +277,7 @@ public class MainAppController {
 			list.addAll(JsonParser.parseFromFile(file));
 
 		else if(file.toString().endsWith(".html"))
-			list.addAll(HTMLParser.parseFromFile(file));
+			list.addAll(HtmlParser.parseFromFile(file));
 
 		InventoryApp.setList(list);
 	}
@@ -290,6 +288,7 @@ public class MainAppController {
 		fileChooser.setTitle("Select File To Load");
 		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
 		fileChooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("All Files", "*.*"),
 				new FileChooser.ExtensionFilter(".txt", "*.txt"),
 				new FileChooser.ExtensionFilter(".json", "*.json"),
 				new FileChooser.ExtensionFilter(".html", "*.html")

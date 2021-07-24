@@ -20,6 +20,16 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="782.0" prefWidth="835.0">
                <children>
+                  <TableView fx:id="table" editable="true" layoutX="15.0" layoutY="125.0" prefHeight="532.0" prefWidth="806.0">
+                    <columns>
+                      <TableColumn fx:id="priceColumn" editable="false" prefWidth="166.0" text="Price" />
+                      <TableColumn fx:id="serialColumn" editable="false" prefWidth="282.0" text="Serial Number" />
+                        <TableColumn fx:id="nameColumn" editable="false" prefWidth="354.0" text="Item Name" />
+                    </columns>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </TableView>
                   <Label layoutX="14.0" layoutY="32.0" text="Search">
                      <font>
                         <Font name="System Bold" size="24.0" />
@@ -56,52 +66,41 @@
                <children>
                   <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="782.0" prefWidth="393.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>
-                              <ChoiceBox fx:id="FileTypeChoiceBox" layoutX="224.0" layoutY="14.0" prefHeight="35.0" prefWidth="91.0" />
-                              <Button layoutX="39.0" layoutY="14.0" mnemonicParsing="false" onAction="#SaveButtonClicked" text="Save" />
-                              <Label layoutX="104.0" layoutY="19.0" prefHeight="25.0" prefWidth="120.0" text="this catalog to a" />
-                              <Label layoutX="324.0" layoutY="19.0" text="File" />
-                              <Button layoutX="66.0" layoutY="97.0" mnemonicParsing="false" onAction="#LoadButtonClicked" text="Load Catalog from an existing file" />
-                              <Label layoutX="10.0" layoutY="132.0" text=".txt , .html , and .json are the ONLY accepted formats" />
+                              <GridPane prefHeight="375.0" prefWidth="365.0">
+                                <columnConstraints>
+                                  <ColumnConstraints />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="119.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="254.0" minWidth="10.0" prefWidth="250.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints maxHeight="361.0" minHeight="0.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" />
+                                  <RowConstraints maxHeight="630.0" minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" />
+                                  <RowConstraints maxHeight="668.0" minHeight="10.0" prefHeight="321.0" valignment="TOP" vgrow="NEVER" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label text="Item Name:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label text="Price:" GridPane.columnIndex="1" />
+                                    <Label text="Serial Number:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="PriceLabel" alignment="TOP_LEFT" prefHeight="25.0" prefWidth="250.0" text="Label" GridPane.columnIndex="2" />
+                                    <Label fx:id="SerialLabel" alignment="TOP_LEFT" prefHeight="25.0" prefWidth="250.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Label fx:id="NameLabel" alignment="TOP_LEFT" prefHeight="640.0" prefWidth="250.0" text="Label" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                 </children>
+                              </GridPane>
+                           </children></AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <Button layoutX="144.0" layoutY="113.0" mnemonicParsing="false" onAction="#SaveButtonClicked" text="Save to File" />
+                              <Button layoutX="66.0" layoutY="14.0" mnemonicParsing="false" onAction="#LoadButtonClicked" text="Load Catalog from an existing file" />
+                              <Label layoutX="10.0" layoutY="57.0" text=".txt , .html , and .json are the ONLY accepted formats" />
                            </children>
                         </AnchorPane>
                     </items>
                   </SplitPane>
-                  <GridPane layoutX="15.0" layoutY="14.0" prefHeight="375.0" prefWidth="365.0">
-                    <columnConstraints>
-                      <ColumnConstraints />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="177.0" minWidth="10.0" prefWidth="119.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="254.0" minWidth="10.0" prefWidth="250.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="361.0" minHeight="0.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" />
-                      <RowConstraints maxHeight="630.0" minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="NEVER" />
-                      <RowConstraints maxHeight="668.0" minHeight="10.0" prefHeight="321.0" valignment="TOP" vgrow="NEVER" />
-                    </rowConstraints>
-                     <children>
-                        <Label text="Item Name:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label text="Price:" GridPane.columnIndex="1" />
-                        <Label text="Serial Number:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label fx:id="PriceLabel" alignment="TOP_LEFT" prefHeight="25.0" prefWidth="250.0" text="Label" GridPane.columnIndex="2" />
-                        <Label fx:id="SerialLabel" alignment="TOP_LEFT" prefHeight="25.0" prefWidth="250.0" text="Label" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Label fx:id="NameLabel" alignment="TOP_LEFT" prefHeight="640.0" prefWidth="250.0" text="Label" wrapText="true" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                     </children>
-                  </GridPane>
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
-      <TableView fx:id="table" editable="true" layoutX="14.0" layoutY="142.0" prefHeight="532.0" prefWidth="806.0">
-        <columns>
-          <TableColumn fx:id="priceColumn" editable="false" prefWidth="166.0" text="Price" />
-          <TableColumn fx:id="serialColumn" editable="false" prefWidth="282.0" text="Serial Number" />
-            <TableColumn fx:id="nameColumn" editable="false" prefWidth="354.0" text="Item Name" />
-        </columns>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
-         </cursor>
-      </TableView>
    </children>
 </AnchorPane>

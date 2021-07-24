@@ -23,4 +23,32 @@ public class FileHandler {
 		writer.write(string);
 		writer.close();
 	}
+
+	public static String readFromFile(File file) {
+		StringBuilder content = new StringBuilder();
+		String next = "";
+		BufferedReader reader;
+		try {
+			reader = FileHandler.getReader(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			System.out.println("Could Not Read File");
+			return null;
+		}
+
+		while(true) {
+			try {
+				next = reader.readLine();
+				if(next == null)
+					break;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			content.append(next).append("\n");
+
+		}
+		System.out.println(content);
+		return content.toString();
+	}
 }

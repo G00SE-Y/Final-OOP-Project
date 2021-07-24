@@ -19,10 +19,6 @@ dependencies {
     // Json-Simple (JSON)
     implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1'
 
-
-    // jsoup (HTML)
-    implementation group: 'org.jsoup', name: 'jsoup', version: '1.14.1'
-
 }
 
 javafx {

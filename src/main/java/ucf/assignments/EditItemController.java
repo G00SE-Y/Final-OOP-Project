@@ -59,7 +59,7 @@ public class EditItemController {
 
 		// Check price validity
 		try {
-			Double.parseDouble(Objects.requireNonNull(this.PriceField.getText()));
+			Double.parseDouble(Objects.requireNonNull(this.PriceField.getText().replace(",","")));
 
 			if ( PriceField.getText().length() == 0) {
 				throw new NumberFormatException();
