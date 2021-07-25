@@ -10,8 +10,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.text.NumberFormat;
-import java.util.Objects;
-import java.util.regex.Pattern;
 
 public class AddItemController {
 	private static Stage dialogStage;

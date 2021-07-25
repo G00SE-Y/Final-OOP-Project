@@ -82,7 +82,7 @@ public class MainAppController {
 	}
 
 	@FXML
-	void AddButtonClicked() { ;
+	void AddButtonClicked() {
 		// Open Add Item dialog
 		try {
 			Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AddItemGUI.fxml")));
