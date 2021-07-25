@@ -24,12 +24,16 @@ public class AddItemController {
 	public void AddButtonClicked() {
 		if(isValid()) {
 			NumberFormat usd = NumberFormat.getCurrencyInstance();
-			InventoryItem newItem = new InventoryItem(usd.format(Double.parseDouble(this.PriceField.getText())), this.SerialField.getText(), this.NameField.getText());
-			InventoryApp.tableData.add(newItem);
-			InventoryApp.items.add(newItem);
+			AddItem(new InventoryItem(usd.format(Double.parseDouble(this.PriceField.getText())), this.SerialField.getText(), this.NameField.getText()));
 
 			dialogStage.close();
 		}
+	}
+
+	public void AddItem(InventoryItem newItem) {
+
+		InventoryApp.tableData.add(newItem);
+		InventoryApp.items.add(newItem);
 	}
 
 	@FXML
@@ -42,13 +46,13 @@ public class AddItemController {
 		String errorMessage = "";
 
 		// Check price validity
-		errorMessage += validatePrice(errorMessage);
+		errorMessage += validatePrice(this.PriceField.getText());
 
 		// Check serial number validity
-		errorMessage += validateSerial(errorMessage);
+		errorMessage += validateSerial(this.SerialField.getText());
 
 		// Check name validity
-		errorMessage += validateName(errorMessage);
+		errorMessage += validateName(this.NameField.getText());
 
 		if (errorMessage.length() == 0) {
 			return true;
@@ -69,33 +73,41 @@ public class AddItemController {
 		alert.showAndWait();
 	}
 
-	private String validateName(String errorMessage) {
-		if(NameField.getText() == null || NameField.getText().length() == 0) {
-			errorMessage += "Please enter a valid Name.\n";
+	public static String validateName(String name) {
+		String errorMessage = "";
+		if(name == null || name.length() == 0) {
+			return "Please enter a valid Name.\n";
 		}
-		else if(!(NameField.getText().length() >= 2 && NameField.getText().length() <=256)) {
+		else if(!(name.length() >= 2 && name.length() <=256)) {
 			errorMessage += "Name must be between 2 and 256 characters long!\n";
 		}
 
-		if(Objects.requireNonNull(NameField.getText()).contains("-"))
+		try {
+			if(Objects.requireNonNull(name).contains("-"))
+				throw new NullPointerException();
+		}
+		catch (NullPointerException e) {
 			errorMessage += "Name must not contain Tabs ('-')!\n";
+		}
+
 		return errorMessage;
 	}
 
-	private String validateSerial(String errorMessage) {
-		if(SerialField.getText() == null || SerialField.getText().length() == 0) {
-			errorMessage += "Please enter a valid Serial Number.\n";
+	public static String validateSerial(String serial) {
+		String errorMessage = "";
+		if(serial == null || serial.length() == 0) {
+			return "Please enter a valid Serial Number.\n";
 		}
-		else if(SerialField.getText().length() != 10) {
+		else if(serial.length() != 10) {
 			errorMessage += "Serial Number must be 10 characters!\n";
 		}
-		else if(!Pattern.matches("[a-zA-Z0-9]+",SerialField.getText())) {
+		else if(!Pattern.matches("[a-zA-Z0-9]+",serial)) {
 			errorMessage += "Serial Number must only contain letters and numbers!\n";
 		}
 
 		// Checking for duplicate Serial Number
 		for(InventoryItem item : InventoryApp.tableData) {
-			if(item.getSerial().equalsIgnoreCase(SerialField.getText())) {
+			if(item.getSerial().equalsIgnoreCase(serial)) {
 				errorMessage += "Serial Number must be unique!\n";
 				break;
 			}
@@ -103,15 +115,17 @@ public class AddItemController {
 		return errorMessage;
 	}
 
-	private String validatePrice(String errorMessage) {
+	public static String validatePrice(String price) {
+		String errorMessage = "";
 		try {
-			Double.parseDouble(Objects.requireNonNull(this.PriceField.getText().replace(",","")));
-
-			if ( PriceField.getText().length() == 0) {
+			if (price.length() == 0 || price == null) {
 				throw new NumberFormatException();
 			}
+
+			Double.parseDouble(price.replace(",",""));
+
 		}
-		catch (NumberFormatException | NullPointerException e) {
+		catch (NumberFormatException e) {
 			errorMessage += "Please enter a valid Price.\n";
 		}
 		return errorMessage;

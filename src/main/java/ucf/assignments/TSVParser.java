@@ -34,7 +34,6 @@ public class TSVParser {
 			String[] tempArr;
 
 			while(next != null) {
-				System.out.println("text: "+next);
 				if(!next.contentEquals("")) {
 					tempArr = next.split("-");
 					list.add(new InventoryItem(tempArr[0], tempArr[1], tempArr[2]));

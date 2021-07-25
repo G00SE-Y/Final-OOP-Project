@@ -48,7 +48,12 @@ public class FileHandler {
 			content.append(next).append("\n");
 
 		}
-		System.out.println(content);
+
+		try {
+			reader.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return content.toString();
 	}
 }

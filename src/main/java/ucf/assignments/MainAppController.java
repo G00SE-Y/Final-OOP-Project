@@ -57,7 +57,7 @@ public class MainAppController {
 		showItem(null);
 
 		// add items to the choice boxes
-		SearchTypeChoiceBox.getItems().addAll("Price", "Serial Number", "Name");
+		SearchTypeChoiceBox.getItems().addAll( "Serial Number", "Name");
 	}
 
 	public MainAppController() {
@@ -142,14 +142,18 @@ public class MainAppController {
 		if(InventoryApp.currentItem == null)
 			return;
 
-		InventoryApp.items.remove(InventoryApp.currentItem);
-		InventoryApp.tableData.remove(InventoryApp.currentItem);
+		deleteSelectedItem();
 
 		// clear selection
 		table.getSelectionModel().clearSelection();
 
 		showItem(null);
 
+	}
+
+	public static void deleteSelectedItem() {
+		InventoryApp.items.remove(InventoryApp.currentItem);
+		InventoryApp.tableData.remove(InventoryApp.currentItem);
 	}
 
 	@FXML
@@ -162,8 +166,6 @@ public class MainAppController {
 		String type = this.SearchTypeChoiceBox.getValue();
 
 		switch (type) {
-			case "Price" -> searchPrice(this.SearchField.getText());
-
 			case "Serial Number" -> searchSerial(this.SearchField.getText());
 
 			case "Name" -> searchName(this.SearchField.getText());
@@ -180,17 +182,7 @@ public class MainAppController {
 		this.SearchField.setText("");
 	}
 
-	private void searchPrice(String text) {
-		// update the table to only show items with the desired string
-		InventoryApp.tableData.clear();
-
-		for(InventoryItem item : InventoryApp.items) {
-			if(item.getPrice().contains(text))
-				InventoryApp.tableData.add(item);
-		}
-	}
-
-	private void searchSerial(String text) {
+	public static void searchSerial(String text) {
 		// update the table to only show items with the desired string
 		InventoryApp.tableData.clear();
 
@@ -200,7 +192,7 @@ public class MainAppController {
 		}
 	}
 
-	private void searchName(String text) {
+	public static void searchName(String text) {
 		// update the table to only show items with the desired string
 		InventoryApp.tableData.clear();
 

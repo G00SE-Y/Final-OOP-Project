@@ -32,7 +32,6 @@ class MainAppController {
 + MainAppController()
 - void showItem(InventoryItem newValue)
 ..Search Stuff..
-- void searchPrice(String text)
 - void searchSerial(String text)
 - void searchName(String text)
 ..File Stuff..
@@ -65,9 +64,7 @@ class AddItemController {
 + void setDialogStage(Stage stage)
 - boolean isValid ()
 - void openAlert(String errorMessage)
-- String validateName(String errorMessage)
-- String validateSerial(String errorMessage)
-- String validatePrice(String errorMessage)
++ void AddItem(InventoryItem newItem)
 }
 
 class EditItemController {
@@ -84,9 +81,7 @@ class EditItemController {
 + void setDialogStage(Stage stage)
 - boolean isValid ()
 - void openAlert(String errorMessage)
-- String validateName(String errorMessage)
-- String validateSerial(String errorMessage)
-- String validatePrice(String errorMessage)
++ EditItem(String newPrice,String newSerial,String newName)
 }
 
 
@@ -116,6 +111,12 @@ class InventoryItem {
 
 
 package Utility {
+class Validator {
++ {static} String validateName(String name)
++ {static} String validateSerial(String serial)
++ {static} String validatePrice(String price)
+}
+
 class FileHandler {
 +{static} BufferedReader getReader(File file)
 +{static} BufferedWriter getWriter(File file)
