@@ -1,3 +1,7 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 first_name last_name
+ */
 package ucf.assignments;
 
 import javafx.fxml.FXML;
@@ -78,8 +82,7 @@ public class MainAppController {
 	}
 
 	@FXML
-	void AddButtonClicked() {
-		System.out.println("Add");
+	void AddButtonClicked() { ;
 		// Open Add Item dialog
 		try {
 			Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AddItemGUI.fxml")));
@@ -106,7 +109,6 @@ public class MainAppController {
 
 	@FXML
 	void EditButtonClicked() {
-		System.out.println("Edit");
 		// Open Edit Item dialog
 		if (InventoryApp.currentItem == null) {
 			return;
@@ -135,9 +137,6 @@ public class MainAppController {
 
 	@FXML
 	void DeleteButtonClicked() {
-		System.out.println("Delete");
-
-
 		// Delete selected item
 		if(InventoryApp.currentItem == null)
 			return;
@@ -158,7 +157,6 @@ public class MainAppController {
 
 	@FXML
 	void SearchButtonClicked() {
-		System.out.println("Search for '" + this.SearchField.getText() + "' in the item " + this.SearchTypeChoiceBox.getValue() + "s");
 		// Search for items containing the input search string within the selected field
 		// update the current visible list to items containing the search string
 		if(this.SearchTypeChoiceBox.getValue() == null || this.SearchField.getText().equals("") || this.SearchField.getText() == null)
@@ -204,7 +202,6 @@ public class MainAppController {
 
 	@FXML
 	void SaveButtonClicked() {
-		System.out.println("Save to:");
 		// Open File Explorer to allow user to select save location
 		// Call method to save list to currently selected format in selected location
 
@@ -246,7 +243,6 @@ public class MainAppController {
 
 	@FXML
 	void LoadButtonClicked() {
-		System.out.println("Load");
 		// Open File Explorer for the user to select a file to load
 		// Call Parse from file function
 		// update table and active memory

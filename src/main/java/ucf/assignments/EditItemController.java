@@ -1,3 +1,7 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 first_name last_name
+ */
 package ucf.assignments;
 
 import javafx.fxml.FXML;
@@ -18,6 +22,7 @@ public class EditItemController {
 
 	@FXML
 	public void initialize () {
+		// initialize text fields with item's current information
 		PriceField.setText(InventoryApp.currentItem.getPrice().replace("$",""));
 		SerialField.setText(InventoryApp.currentItem.getSerial());
 		NameField.setText(InventoryApp.currentItem.getName());
@@ -29,6 +34,9 @@ public class EditItemController {
 
 	@FXML
 	public void SubmitButtonClicked() {
+		// check if user input is valid
+		// change selected item's information to new information
+
 		if(isValid()) {
 			NumberFormat usd = NumberFormat.getCurrencyInstance();
 			EditItem(usd.format(Double.parseDouble(this.PriceField.getText())),this.SerialField.getText(),this.NameField.getText());
@@ -46,12 +54,16 @@ public class EditItemController {
 
 	@FXML
 	public void CancelButtonClicked() {
-		System.out.println("Cancelled");
+		// close the add item dialog
+		// reset table selection
 		InventoryApp.currentItem = null;
 		dialogStage.close();
 	}
 
 	private boolean isValid () {
+		// check if user input is valid
+			// if user input is not valid, open alert dialog requesting that the user fix incorrect input
+			// if input is valid, return true
 		String errorMessage = "";
 
 		// Check price validity
@@ -74,6 +86,7 @@ public class EditItemController {
 	}
 
 	private void openAlert(String errorMessage) {
+		// open an alert dialog with the error message given
 		Alert alert = new Alert(Alert.AlertType.ERROR);
 		alert.initOwner(dialogStage);
 		alert.setTitle("Invalid Input");

@@ -1,3 +1,7 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 first_name last_name
+ */
 package ucf.assignments;
 
 import org.json.simple.JSONArray;
@@ -11,6 +15,8 @@ import java.util.LinkedList;
 public class JsonParser {
 	@SuppressWarnings("unchecked")
 	public static void parseToFile(File file, LinkedList<InventoryItem> items) {
+		// create string in json format with current list data
+		// write string to specified json file
 
 			JSONArray array = new JSONArray();
 
@@ -29,8 +35,11 @@ public class JsonParser {
 			}
 
 	}
-	//@SuppressWarnings("unchecked")
 	public static LinkedList<InventoryItem> parseFromFile(File file) {
+		// read string from specified json file
+		// convert string into object data
+		// return list with all objects read from file
+
 		BufferedReader reader;
 		JSONParser parse = new JSONParser();
 		JSONArray jsonArray;

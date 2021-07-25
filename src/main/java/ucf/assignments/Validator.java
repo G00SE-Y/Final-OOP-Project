@@ -1,3 +1,7 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 first_name last_name
+ */
 package ucf.assignments;
 
 import java.util.Objects;
@@ -5,6 +9,9 @@ import java.util.regex.Pattern;
 
 public class Validator {
 	public static String validateName(String name) {
+		// check if string is 2-256 characters
+		// check if string contains tabs
+
 		String errorMessage = "";
 		if(name == null || name.length() == 0) {
 			return "Please enter a valid Name.\n";
@@ -25,6 +32,10 @@ public class Validator {
 	}
 
 	public static String validateSerial(String serial) {
+		// check if string is 10 characters
+		// check if string is alphanumeric
+		// check if string matches any serial numbers in active memory
+
 		String errorMessage = "";
 		if(serial == null || serial.length() == 0) {
 			return "Please enter a valid Serial Number.\n";
@@ -47,6 +58,8 @@ public class Validator {
 	}
 
 	public static String validatePrice(String price) {
+		// check if string is a valid floating point number
+
 		String errorMessage = "";
 		try {
 			Double.parseDouble(Objects.requireNonNull(price.replace(",","")));

@@ -1,3 +1,7 @@
+/*
+ *  UCF COP3330 Summer 2021 Assignment 5 Solution
+ *  Copyright 2021 first_name last_name
+ */
 package ucf.assignments;
 
 import javafx.application.Application;
@@ -18,6 +22,7 @@ public class InventoryApp extends Application {
 	public static MainAppController mainAppController;
 	public static InventoryItem currentItem;
 
+	// table items
 	public static ObservableList<InventoryItem> tableData;
 	public static LinkedList<InventoryItem> items;
 
