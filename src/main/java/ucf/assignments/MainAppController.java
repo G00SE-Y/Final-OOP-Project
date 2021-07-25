@@ -147,6 +147,7 @@ public class MainAppController {
 
 		// clear selection
 		table.getSelectionModel().clearSelection();
+
 		showItem(null);
 
 	}

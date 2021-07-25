@@ -1,43 +1,94 @@
 @startuml
 'https://plantuml.com/class-diagram
 class InventoryApp {
++ {static} Stage mainStage;
++ {static} MainAppController mainAppController;
 ..Active Memory..
-+{static} Stage mainStage
-+{static} LinkedList<InventoryItem> currentList
-+{static} InventoryItem currentItem
++ {static} InventoryItem currentItem;
++ {static} ObservableList<InventoryItem> tableData;
++ {static} LinkedList<InventoryItem> items;
 --
-+start()
-+{static} main()
--{static} LoadDummy(only for testing)
++ {static} void main(String[] args)
++ void start(Stage primaryStage)
++ {static} void setList(LinkedList<InventoryItem> newList)
 }
+
 
 class MainAppController {
-..Nodes..
-@FXML ChoiceBox FileTypeChoiceBox
-@FXML TextField SearchField
-@FXML Label NameLabel
-@FXML Label SerialLabel
-@FXML Label PriceLabel
-@FXML Label InventoryNameLabel
+@FXML ChoiceBox<String> SearchTypeChoiceBox;
+@FXML TextField SearchField;
+@FXML Label NameLabel;
+@FXML Label SerialLabel;
+@FXML Label PriceLabel;
+@FXML Label InventoryNameLabel;
 
-..Table Display..
-@FXML private TableView<InventoryItem> table
-@FXML private TableColumn<InventoryItem,String> priceColumn
-@FXML private TableColumn<InventoryItem,String> serialColumn
-@FXML private TableColumn<InventoryItem,String> nameColumn
+..Table View..
+@FXML private TableView<InventoryItem> table;
+@FXML private TableColumn<InventoryItem, String> priceColumn;
+@FXML private TableColumn<InventoryItem, String> serialColumn;
+@FXML private TableColumn<InventoryItem, String> nameColumn;
 --
-+void initialize ()
-+MainAppController()
--void showItem(InventoryItem newValue)
-
++ void initialize()
++ MainAppController()
+- void showItem(InventoryItem newValue)
+..Search Stuff..
+- void searchPrice(String text)
+- void searchSerial(String text)
+- void searchName(String text)
+..File Stuff..
+- File getSaveFile()
+- File getLoadFile()
+- void parseToFile(File file)
+- void loadFromFile(File file)
 ..Event Handlers..
-void AddButtonClicked(ActionEvent actionEvent)
-void EditButtonClicked(ActionEvent actionEvent)
-void DeleteButtonClicked(ActionEvent actionEvent)
-void SaveButtonClicked(ActionEvent actionEvent)
-void LoadButtonClicked(ActionEvent actionEvent)
-void SearchButtonClicked(ActionEvent actionEvent)
+void AddButtonClicked()
+void EditButtonClicked()
+void DeleteButtonClicked()
+void SearchButtonClicked()
+void clearButtonClicked()
+void SaveButtonClicked()
+void LoadButtonClicked()
 }
+
+
+class AddItemController {
+- static Stage dialogStage;
+..Nodes..
+@FXML TextArea NameField;
+@FXML TextField PriceField;
+@FXML TextField SerialField;
+--
+..Event Handlers..
+@FXML void AddButtonClicked()
+@FXML void CancelButtonClicked()
+..methods..
++ void setDialogStage(Stage stage)
+- boolean isValid ()
+- void openAlert(String errorMessage)
+- String validateName(String errorMessage)
+- String validateSerial(String errorMessage)
+- String validatePrice(String errorMessage)
+}
+
+class EditItemController {
+- static Stage dialogStage;
+..Nodes..
+@FXML TextArea NameField;
+@FXML TextField PriceField;
+@FXML TextField SerialField;
+--
+..Event Handlers..
+@FXML void SubmitButtonClicked()
+@FXML void CancelButtonClicked()
+..methods..
++ void setDialogStage(Stage stage)
+- boolean isValid ()
+- void openAlert(String errorMessage)
+- String validateName(String errorMessage)
+- String validateSerial(String errorMessage)
+- String validatePrice(String errorMessage)
+}
+
 
 class InventoryItem {
 ..Fields..
@@ -60,22 +111,54 @@ class InventoryItem {
 + String toString()
 }
 
-package FXML {
-class MainAppGUI
+
+
+
+
+package Utility {
+class FileHandler {
++{static} BufferedReader getReader(File file)
++{static} BufferedWriter getWriter(File file)
++{static} void writeToFile(String string, File file)
++{static} String readFromFile(File file)
 }
 
-class TextParser
-class JSONParser
-class HTMLParser
+class TSVParser {
++ {static} void parseToFile(File file, LinkedList<InventoryItem> data)
++ {static} LinkedList<InventoryItem> parseFromFile(File file)
+- {static} String tabify(LinkedList<InventoryItem> data)
+}
+
+class JsonParser {
++ {static} void parseToFile(File file, LinkedList<InventoryItem> items)
++ {static} LinkedList<InventoryItem> parseFromFile(File file)
+}
+
+class HtmlParser {
++ {static} void parseToFile(File file, LinkedList<InventoryItem> items)
++ {static} LinkedList<InventoryItem> parseFromFile(File file)
+}
+
 note "Parsers" as n1
 
-n1 . TextParser
-n1 . JSONParser
-n1 . HTMLParser
+n1 .. TSVParser
+n1 . JsonParser
+n1 .. HtmlParser
+}
+
+package FXML {
+class MainAppGUI
+class AddItemGui
+class EditItemGui
+}
+
+
 
 InventoryApp - InventoryItem
 InventoryApp -- MainAppController
 
-MainAppController -> FXML
+
+MainAppController -- AddItemController
+MainAppController -- EditItemController
 
 @enduml

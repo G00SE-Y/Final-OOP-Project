@@ -42,18 +42,47 @@ public class AddItemController {
 		String errorMessage = "";
 
 		// Check price validity
-		try {
-			Double.parseDouble(Objects.requireNonNull(this.PriceField.getText().replace(",","")));
-
-			if ( PriceField.getText().length() == 0) {
-				throw new NumberFormatException();
-			}
-		}
-		catch (NumberFormatException | NullPointerException e) {
-			errorMessage += "Please enter a valid Price.\n";
-		}
+		errorMessage += validatePrice(errorMessage);
 
 		// Check serial number validity
+		errorMessage += validateSerial(errorMessage);
+
+		// Check name validity
+		errorMessage += validateName(errorMessage);
+
+		if (errorMessage.length() == 0) {
+			return true;
+		}
+		else {
+			openAlert(errorMessage);
+			return false;
+		}
+	}
+
+	private void openAlert(String errorMessage) {
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.initOwner(InventoryApp.mainStage);
+		alert.setTitle("Invalid Input");
+		alert.setHeaderText("Please correct invalid fields");
+		alert.setContentText(errorMessage);
+
+		alert.showAndWait();
+	}
+
+	private String validateName(String errorMessage) {
+		if(NameField.getText() == null || NameField.getText().length() == 0) {
+			errorMessage += "Please enter a valid Name.\n";
+		}
+		else if(!(NameField.getText().length() >= 2 && NameField.getText().length() <=256)) {
+			errorMessage += "Name must be between 2 and 256 characters long!\n";
+		}
+
+		if(Objects.requireNonNull(NameField.getText()).contains("-"))
+			errorMessage += "Name must not contain Tabs ('-')!\n";
+		return errorMessage;
+	}
+
+	private String validateSerial(String errorMessage) {
 		if(SerialField.getText() == null || SerialField.getText().length() == 0) {
 			errorMessage += "Please enter a valid Serial Number.\n";
 		}
@@ -71,31 +100,20 @@ public class AddItemController {
 				break;
 			}
 		}
+		return errorMessage;
+	}
 
-		// Check name validity
-		if(NameField.getText() == null || NameField.getText().length() == 0) {
-			errorMessage += "Please enter a valid Name.\n";
+	private String validatePrice(String errorMessage) {
+		try {
+			Double.parseDouble(Objects.requireNonNull(this.PriceField.getText().replace(",","")));
+
+			if ( PriceField.getText().length() == 0) {
+				throw new NumberFormatException();
+			}
 		}
-		else if(!(NameField.getText().length() >= 2 && NameField.getText().length() <=256)) {
-			errorMessage += "Name must be between 2 and 256 characters long!\n";
+		catch (NumberFormatException | NullPointerException e) {
+			errorMessage += "Please enter a valid Price.\n";
 		}
-
-		if(Objects.requireNonNull(NameField.getText()).contains("-"))
-			errorMessage += "Name must must not contain Tabs ('-')!\n";
-
-		if (errorMessage.length() == 0) {
-			return true;
-		}
-		else {
-			Alert alert = new Alert(Alert.AlertType.ERROR);
-			alert.initOwner(dialogStage);
-			alert.setTitle("Invalid Input");
-			alert.setHeaderText("Please correct invalid fields");
-			alert.setContentText(errorMessage);
-
-			alert.showAndWait();
-
-			return false;
-		}
+		return errorMessage;
 	}
 }
