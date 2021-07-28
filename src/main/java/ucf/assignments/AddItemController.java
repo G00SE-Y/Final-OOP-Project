@@ -54,13 +54,13 @@ public class AddItemController {
 		String errorMessage = "";
 
 		// Check price validity
-		errorMessage = Validator.validatePrice(errorMessage);
+		errorMessage += Validator.validatePrice(errorMessage);
 
 		// Check serial number validity
-		errorMessage = Validator.validateSerial(errorMessage);
+		errorMessage += Validator.validateSerial(errorMessage);
 
 		// Check name validity
-		errorMessage = Validator.validateName(errorMessage);
+		errorMessage += Validator.validateName(errorMessage);
 
 		if (errorMessage.length() == 0) {
 			return true;
